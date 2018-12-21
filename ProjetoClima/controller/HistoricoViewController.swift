@@ -18,8 +18,7 @@ class HistoricoViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController!.navigationBar.tintColor = UIColor.white;
-        
+        self.navigationController!.navigationBar.tintColor = UIColor.black;
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -85,7 +85,7 @@ class ClimaViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidAppear(_ animated: Bool) {
             self.navigationController?.navigationBar.topItem?.title = ""
-            self.navigationController!.navigationBar.tintColor = UIColor.white;
+            self.navigationController!.navigationBar.tintColor = UIColor.black;
             refresh()
     }
     
@@ -140,18 +140,17 @@ class ClimaViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellClimaPesquisa", for: indexPath) as! NovaCell
         
-        if let c: ClimaJson = clima {
-            if let r: Result = c.results{
-                if let f: Forecast = r.forecast[indexPath.row]{
-                    cell.nameCell.text = getText(text: f.condition)
-                    cell.dataCell.text = f.date
-                    cell.max.text = "Max " + String(f.max) + "Cº"
-                    cell.min.text = "Min " + String(f.min) + "Cº"
-                    cell.max.textColor = colorText(num: Int(f.max)!)
-                    cell.min.textColor = colorText(num: Int(f.min)!)
-                    cell.imgCell.image = getImg(s: f.condition)
-                }
-            }
+        
+        if let f: Forecast = clima?.results.forecast[indexPath.row]{
+            
+            cell.nameCell.text = getText(text: f.condition)
+            cell.dataCell.text = f.date
+            cell.max.text = "Max " + String(f.max) + "Cº"
+            cell.min.text = "Min " + String(f.min) + "Cº"
+            cell.max.textColor = colorText(num: Int(f.max)!)
+            cell.min.textColor = colorText(num: Int(f.min)!)
+            cell.imgCell.image = getImg(s: f.condition)
+            
         }
         return cell
     }
