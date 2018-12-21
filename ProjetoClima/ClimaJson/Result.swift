@@ -64,7 +64,7 @@ class Result : NSObject, NSCoding{
 	 */
 	func toDictionary() -> [String:Any]
 	{
-		let dictionary = [String:Any]()
+        var dictionary = [String:Any]()
 		if cid != nil{
 			dictionary["cid"] = cid
 		}

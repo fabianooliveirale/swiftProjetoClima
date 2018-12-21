@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		021396E6A53E1171C961D468 /* Pods_ProjetoClima.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC74788522A8A37F982B5517 /* Pods_ProjetoClima.framework */; };
 		4E0E0ED321C4104F0086423A /* HistoricoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E0ED221C4104F0086423A /* HistoricoViewController.swift */; };
-		4E0E0ED621C410CA0086423A /* ClimaDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E0ED521C410CA0086423A /* ClimaDao.swift */; };
 		4E0E0EE621C4AE1F0086423A /* Extras in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E0EE521C4AE1F0086423A /* Extras */; };
 		4E0E0EE921C4AE8A0086423A /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E0EE821C4AE8A0086423A /* Api.swift */; };
 		4E0E0EEB21C4AF320086423A /* ClimaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E0EEA21C4AF320086423A /* ClimaViewController.swift */; };
@@ -30,7 +29,6 @@
 /* Begin PBXFileReference section */
 		1428B0A6832789CF0D7B94F2 /* Pods-ProjetoClima.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjetoClima.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjetoClima/Pods-ProjetoClima.release.xcconfig"; sourceTree = "<group>"; };
 		4E0E0ED221C4104F0086423A /* HistoricoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricoViewController.swift; sourceTree = "<group>"; };
-		4E0E0ED521C410CA0086423A /* ClimaDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimaDao.swift; sourceTree = "<group>"; };
 		4E0E0EE521C4AE1F0086423A /* Extras */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Extras; sourceTree = "<group>"; };
 		4E0E0EE821C4AE8A0086423A /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		4E0E0EEA21C4AF320086423A /* ClimaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimaViewController.swift; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 		4E0E0ED421C410BC0086423A /* dao */ = {
 			isa = PBXGroup;
 			children = (
-				4E0E0ED521C410CA0086423A /* ClimaDao.swift */,
 				4E4F287321C97AEC002CD6D6 /* HistoricoDao.swift */,
 			);
 			path = dao;
@@ -298,7 +295,6 @@
 				4E4F287421C97AEC002CD6D6 /* HistoricoDao.swift in Sources */,
 				4E0E0EF721C4BC5D0086423A /* Forecast.swift in Sources */,
 				4E0E0EE921C4AE8A0086423A /* Api.swift in Sources */,
-				4E0E0ED621C410CA0086423A /* ClimaDao.swift in Sources */,
 				4E0E0EF521C4BC5D0086423A /* Result.swift in Sources */,
 				4E0E0EEB21C4AF320086423A /* ClimaViewController.swift in Sources */,
 			);

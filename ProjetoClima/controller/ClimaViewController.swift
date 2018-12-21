@@ -13,20 +13,19 @@ class ClimaViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var data: UILabel!
     @IBOutlet weak var img: UIImageView!
-    var clima: ClimaJson!
+    var clima: ClimaJson?
     var woeid: String = ""
     @IBOutlet weak var utb: UITableView!
     var txtField1: UITextField!
+    @IBOutlet weak var temp: UILabel!
     
     
     
     @IBAction func pesquisa(_ sender: Any) {
         
         let alert = UIAlertController(title: "woeId", message: "Coloque o woeid da cidade.", preferredStyle: .alert)
-        // UIAlertControllerStyle.Alert
         
         alert.addTextField(configurationHandler: addTextField1)
-        //                alert.addTextField(configurationHandler: addTextField2)
         
         alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertAction.Style.cancel, handler: { (UIAlertAction)in
         }))
@@ -52,15 +51,13 @@ class ClimaViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func getClima(){
+        var ret = true
         SVProgressHUD.show()
         Api.climaDetalhes(woeid: woeid, completion: { item in
             if let c :ClimaJson = item {
                 let dao: HistoricoDao = HistoricoDao()
-               // dao.salvar(clima: c)
-                self.clima = c
-                dao.salvar(clima: c)
-                
-               // self.clima = dao.listar()[0]
+                    self.clima = c
+                    dao.salvar(clima: c)
                 self.refresh()
             }
             SVProgressHUD.dismiss()
@@ -87,21 +84,40 @@ class ClimaViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     
     override func viewDidAppear(_ animated: Bool) {
-        if let _: ClimaJson = clima {
+            self.navigationController?.navigationBar.topItem?.title = ""
+            self.navigationController!.navigationBar.tintColor = UIColor.white;
             refresh()
-            
+    }
+    
+    func getText (text: String) -> String {
+        var s2 = ""
+        if text.contains("storm") {
+            s2 = "Tempestade"
+        }else if text.contains("cloudly") || text.contains("cloud"){
+            s2 = "Nublado"
+        }else if text.contains("snow"){
+            s2 = "Neve"
+        }else if text.contains("rain"){
+            s2 = "Chuva"
+        }else{
+            s2 = "Sol"
         }
+        return s2
     }
     
     func refresh(){
-        if let c: ClimaJson = clima {  
-            name.text = c.results.cityName
-            data.text = c.results.date
-            img.image = getImg(s: c.results.conditionSlug)
-            name.isHidden = false
-            data.isHidden = false
-            img.isHidden = false
-            self.utb.reloadData()
+        if let c: ClimaJson = clima {
+                name.text = c.results.cityName
+                data.text = c.results.date
+                img.image = getImg(s: c.results.conditionSlug)
+                temp.text = String(c.results.temp) + "Cº"
+                temp.textColor = colorText(num: c.results.temp)
+                name.isHidden = false
+                data.isHidden = false
+                img.isHidden = false
+                temp.isHidden = false
+                self.utb.reloadData()
+         
         }
     }
 
@@ -121,20 +137,37 @@ class ClimaViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "cellClimaPesquisa", for: indexPath as IndexPath)
-        let forecast: Forecast = clima.results.forecast[indexPath.row]
-         let cell = tableView.dequeueReusableCell(withIdentifier: "cellClimaPesquisa", for: indexPath) as! NovaCell
         
-        cell.nameCell.text = forecast.condition
-        print(forecast.condition)
-        cell.dataCell.text = forecast.date
-        cell.imgCell.image = getImg(s: forecast.condition)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellClimaPesquisa", for: indexPath) as! NovaCell
         
+        if let c: ClimaJson = clima {
+            if let r: Result = c.results{
+                if let f: Forecast = r.forecast[indexPath.row]{
+                    cell.nameCell.text = getText(text: f.condition)
+                    cell.dataCell.text = f.date
+                    cell.max.text = "Max " + String(f.max) + "Cº"
+                    cell.min.text = "Min " + String(f.min) + "Cº"
+                    cell.max.textColor = colorText(num: Int(f.max)!)
+                    cell.min.textColor = colorText(num: Int(f.min)!)
+                    cell.imgCell.image = getImg(s: f.condition)
+                }
+            }
+        }
         return cell
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    func colorText (num: Int) -> UIColor {
+        if(num > 30) {
+            return UIColor.init(displayP3Red: 160/255, green: 0, blue: 0, alpha: 1)
+        }else if num < 10 {
+            return UIColor.init(displayP3Red: 0, green: 0, blue: 160/255, alpha: 1)
+        }
+            return UIColor.init(displayP3Red: 0, green: 80/255, blue: 0, alpha: 1)
     }
     
 }
@@ -150,6 +183,10 @@ class NovaCell: UITableViewCell {
     @IBOutlet weak var nameCell: UILabel!
     @IBOutlet weak var dataCell: UILabel!
     @IBOutlet weak var imgCell: UIImageView!
+    @IBOutlet weak var max: UILabel!
+    @IBOutlet weak var min: UILabel!
+    
+    
 }
 
 

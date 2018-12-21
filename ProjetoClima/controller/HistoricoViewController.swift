@@ -18,7 +18,7 @@ class HistoricoViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController!.navigationBar.tintColor = UIColor.black;
+        self.navigationController!.navigationBar.tintColor = UIColor.white;
         
     }
     
@@ -51,6 +51,7 @@ class HistoricoViewController: UITableViewController {
     
     func refresh(){
         let dao = HistoricoDao()
+        
         climas = dao.listar()
         tableView.reloadData()
     }
@@ -67,7 +68,6 @@ class HistoricoViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return climas.count
     }
     
@@ -76,9 +76,11 @@ class HistoricoViewController: UITableViewController {
         let c: ClimaJson = climas [indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellHistorco", for: indexPath) as! cellHistorico// indentificado de CEL na main story boad
-        cell.nameCell.text = c.results.cityName
-        cell.dataCell.text = c.results.date
- 
+        if let clima:ClimaJson = c {
+            print(clima.results.cityName + "AKI AKI AKI ERRO!")
+            cell.nameCell.text = clima.results.cityName
+            cell.dataCell.text = clima.results.date
+        }
         return cell
     }
 

@@ -21,14 +21,11 @@ class Api{
                 .responseJSON { response in
                     
                     let status:Int = response.response?.statusCode ?? 0
-                    //print("STATUS \(String(describing: status))")
                     
                     let json = JSON(response.result.value as Any)
                     let object = ClimaJson(fromJson: json)
-                    print(object)
                     
                     completion(object)
-                 
             }
         }
     }
