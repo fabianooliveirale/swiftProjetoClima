@@ -12,7 +12,7 @@ import SVProgressHUD
 class HistoricoViewController: UITableViewController {
     
  
-    var climas: [ClimaJson] = []
+    var climas: [ClimaJson?] = []
     var clima: ClimaJson!
 
     override func viewDidLoad() {
@@ -45,12 +45,10 @@ class HistoricoViewController: UITableViewController {
             dao.remove(index: indexPath.row)
             refresh()
         }
-        
     }
     
     func refresh(){
         let dao = HistoricoDao()
-        
         climas = dao.listar()
         tableView.reloadData()
     }
@@ -72,14 +70,18 @@ class HistoricoViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let c: ClimaJson = climas [indexPath.row]
+         let cell = tableView.dequeueReusableCell(withIdentifier: "cellHistorco", for: indexPath) as! cellHistorico//
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellHistorco", for: indexPath) as! cellHistorico// indentificado de CEL na main story boad
-        if let clima:ClimaJson = c {
-            print(clima.results.cityName + "AKI AKI AKI ERRO!")
-            cell.nameCell.text = clima.results.cityName
-            cell.dataCell.text = clima.results.date
+        if let c: ClimaJson = climas [indexPath.row] {
+           // print(clima.results.cityName + "AKI AKI AKI ERRO!")
+            cell.nameCell.text = c.results.cityName
+            cell.dataCell.text = c.results.date
         }
+        
+//        indentificado de CEL na main story boad
+//        if let clima:ClimaJson = c {
+//
+//        }
         return cell
     }
 

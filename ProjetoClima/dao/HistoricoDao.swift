@@ -28,18 +28,11 @@ class HistoricoDao {
     }
     
     func listar() -> [ClimaJson] {
-        var arrayCorrigido: [ClimaJson] = []
         let userDefaults = UserDefaults.standard
         if let decoded = userDefaults.object(forKey: "historico"){
             let array = try NSKeyedUnarchiver.unarchiveObject(with: decoded as! Data) as! [ClimaJson]
-            print(array.count)
-            
-            for a in array{
-                if let a2:ClimaJson = a {
-                    arrayCorrigido.append(a2)
-                }
-            }
-            return arrayCorrigido
+            //print(array.count)
+            return array
         } else {
             print("RETURN NULL")
             return []
